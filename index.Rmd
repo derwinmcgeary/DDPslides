@@ -1,0 +1,60 @@
+---
+title: "When Is Glasgow Open?"
+author: "Derwin McGeary"
+date: "11/22/2015"
+framework: io2012
+output: html_document
+---
+
+# Open Data
+
+"We know that half our advertising money is wasted &mdash; we just don't know which half!"
+(popular business aphorism)
+
+* Equally, a lot of data put out under open government is low-quality and not particularly useful
+* But when it's all out there, you can grab scraps pretty easily!
+
+# Open Glasgow
+
+Glasgow city council has done some great work as part of the FutureCities project to make the city more accessible and data-driven. The portal at http://open.glasgow.gov.uk had many datasets added in February 2015, and is kept updated. The individual datasets have data dictionaries and can be downloaded as CSV.
+
+* Good: Available at all, documented, and in a hacker-friendly format
+* Bad: Data isn't very clean
+
+---
+
+# Using the data
+
+I took the messy, human-readable opening times and processed them to make building opening times programatically accessible.
+
+We went from this:
+
+```{r warnings=FALSE}
+source(file = "glasgowsopen.R")
+head(openinghours[,1:5],2)
+```
+
+Semi-consistent format for times, but ultimately a string with variable numbers of digits, spaces, and different separators.
+
+---
+
+# Using the data
+
+Tidied, it looks like this
+
+```{r}
+head(tidyopeninghours[,-(4:6)],4)
+```
+
+Now we can plot away!
+
+---
+
+# So who's up early?
+
+Now we can see what facilities are open at 7am on a Sunday.
+```{r echo=FALSE, fig.width=13, fig.height=5}
+plotFacilities(getFacilities(7,"Sunday"))
+```
+Ready to tee off? Try the app at https://derwin.shinyapps.io/firstgo , and read the code at https://github.com/derwinmcgeary/DDP
+
